@@ -21,7 +21,10 @@ def crypto(mes,mode):
         bmes = list(mes)
         for i in range (len(bmes)):
             bmes[i] = ord(bmes[i])
-            bmes[i] = chr(bmes[i] - random.randint(100, 100000))
+            try:
+                bmes[i] = chr(bmes[i] - random.randint(100, 100000))
+            except:
+                print("Error")
     return "".join(bmes)
             
 
@@ -39,7 +42,7 @@ while True:
         if "GEN" in sp.upper():
             key = random.randint(50, 9999) 
         else:
-            key = int(sp)
+            key = str(sp)
             
         random.seed(seedgen(key))
         
@@ -58,8 +61,8 @@ while True:
         print("Type in/Paste the encrypted message")
         mes = str(input())
         print("Type in the Key")
-        key = int(input())
-        random.seed(key)
+        key = str(input())
+        random.seed(seedgen(key))
         print(" ")
         print("The decrypted message is: ")
         print(" ")
