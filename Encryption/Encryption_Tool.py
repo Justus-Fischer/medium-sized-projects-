@@ -45,14 +45,16 @@ def crypto(mes,mode):
                     bmes[i] = chr(zkv(bmes[i] + random.randint(100, 100000) - ord(bmes[i-1])*10))
                     
                 else:
-                    bmes[i] = chr(zkv(bmes[i] + random.randint(100, 100000)))
+                    bmes[i] = chr(zkv(bmes[i] + random.randint(100, 100000)*iv))
                     
             except:
                 print("unexpected error")
                 break
     else:
-        bmes = list(mes)
-        cbmes = list(mes)
+        ivT = mes[:3]
+        re = geheimtext = mes[3:]
+        bmes = list(re)
+        cbmes = list(re)
         random.seed(seedgen(key))
         for i in range (len(bmes)):
             bmes[i] = ord(bmes[i])
@@ -61,7 +63,7 @@ def crypto(mes,mode):
                     bmes[i] = chr(zke(bmes[i] - random.randint(100, 100000) + ord(cbmes[i-1])*10))
                     
                 else:
-                    bmes[i] = chr(zke(bmes[i] - random.randint(100, 100000)))
+                    bmes[i] = chr(zke(bmes[i] - random.randint(100, 100000)*int(ivT)))
                     
             except:
                 print("invalid password")
@@ -88,13 +90,13 @@ while True:
         else:
             key = str(sp)
             
-        
+        iv = random.Random().randint(100, 999)
         print("Type in the message that should be encrypted")
         mes = str(input())
         
         print("Your encrypted message is: ")
         print(" ")
-        print(str(crypto(mes,1)))
+        print(str(iv)+str(crypto(mes,1)))
         print(" ")
         print("Please don't forget your password: " + str(key))
             
