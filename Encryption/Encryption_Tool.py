@@ -1,7 +1,14 @@
-#JUST A DEMO - DO NOT USE FOR REAL SENSITIVE DATA!
 import random
 
-
+def seedgen(pasw):
+    stes = 5381
+    
+    bpasw = list(pasw)
+    
+    for i in range(len(bpasw)):
+        stes = int((stes * 33) + ord(bpasw[i]))
+        
+    print(str(stes))
 
 def crypto(mes,mode):
     
@@ -20,7 +27,9 @@ def crypto(mes,mode):
 
     
 print("Welcome to Crypto_Text!")  
-
+#while True:
+    #d = str(input())
+    #seedgen(d)
 
 while True:
     print("Do you want to Encrypt or Decrypt? (En/De)")
@@ -32,7 +41,7 @@ while True:
         else:
             key = int(sp)
             
-        random.seed(key)
+        random.seed(seedgen(key))
         
         print("Type in the message that should be encrypted")
         mes = str(input())
