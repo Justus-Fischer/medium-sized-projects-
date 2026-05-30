@@ -1,5 +1,10 @@
 import random
 
+def zk(wert):
+    if 0xE000 <= wert <= 0xE7FF:
+        wert -= 2048
+    return wert
+
 def seedgen(pasw):
     stes = 5381
     
@@ -8,7 +13,7 @@ def seedgen(pasw):
     for i in range(len(bpasw)):
         stes = int((stes * 33) + ord(bpasw[i]))
         
-    print(str(stes))
+    return stes
 
 def crypto(mes,mode):
     
@@ -18,16 +23,17 @@ def crypto(mes,mode):
         for i in range (len(bmes)):
             bmes[i] = ord(bmes[i])
             try:
-                bmes[i] = chr(bmes[i] + random.randint(100, 100000))
+                bmes[i] = chr(zk(bmes[i] + random.randint(100, 100000)))
             except:
                 print("unexpected error")
+                break
     else:
         bmes = list(mes)
         random.seed(seedgen(key))
         for i in range (len(bmes)):
             bmes[i] = ord(bmes[i])
             try:
-                bmes[i] = chr(bmes[i] - random.randint(100, 100000))
+                bmes[i] = chr(zk(bmes[i] - random.randint(100, 100000)))
             except:
                 print("invalid password")
                 break
