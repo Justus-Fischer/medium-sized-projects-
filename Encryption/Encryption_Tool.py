@@ -52,12 +52,13 @@ def crypto(mes,mode):
                 break
     else:
         bmes = list(mes)
+        cbmes = list(mes)
         random.seed(seedgen(key))
         for i in range (len(bmes)):
             bmes[i] = ord(bmes[i])
             try:
                 if i > 0:
-                    bmes[i] = chr(zke(bmes[i] - random.randint(100, 100000) + ord(bmes[i-1])*10))
+                    bmes[i] = chr(zke(bmes[i] - random.randint(100, 100000) + ord(cbmes[i-1])*10))
                     
                 else:
                     bmes[i] = chr(zke(bmes[i] - random.randint(100, 100000)))
