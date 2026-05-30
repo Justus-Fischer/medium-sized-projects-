@@ -1,6 +1,16 @@
 #JUST A DEMO - DO NOT USE FOR REAL SENSITIVE DATA!
 import random
 
+def bu(num):
+    word = []
+    for i in range(num):
+        sp = chr(random.randint(0, 130))
+        while not sp.isprintable():
+            sp = chr(random.randint(0, 130))
+    
+        word.append(sp)
+    return "".join(word)
+
 def zkv(wert):
     wert = wert % 0x110000  
     if 0xD800 <= wert <= 0xDFFF:  
@@ -61,7 +71,7 @@ while True:
         print('Choose your password or type "generate" for a password which is saver')
         sp = input()
         if "GEN" in sp.upper():
-            key = random.randint(50, 9999) 
+            key = str(bu(random.randint(10, 15))) 
         else:
             key = str(sp)
             
