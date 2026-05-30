@@ -51,8 +51,8 @@ def crypto(mes,mode):
                 print("unexpected error")
                 break
     else:
-        ivT = mes[:3]
-        re = geheimtext = mes[3:]
+        ivT = mes[:6]
+        re = geheimtext = mes[6:]
         bmes = list(re)
         cbmes = list(re)
         random.seed(seedgen(key))
@@ -90,7 +90,7 @@ while True:
         else:
             key = str(sp)
             
-        iv = random.Random().randint(100, 999)
+        iv = random.Random().randint(100000, 999999)
         print("Type in the message that should be encrypted")
         mes = str(input())
         
