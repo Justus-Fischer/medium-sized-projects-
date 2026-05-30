@@ -14,18 +14,27 @@ def crypto(mes,mode):
     
     if mode == 1:
         bmes = list(mes)
+        random.seed(seedgen(key))
         for i in range (len(bmes)):
             bmes[i] = ord(bmes[i])
-            bmes[i] = chr(bmes[i] + random.randint(100, 100000))
+            try:
+                bmes[i] = chr(bmes[i] + random.randint(100, 100000))
+            except:
+                print("unexpected error")
     else:
         bmes = list(mes)
+        random.seed(seedgen(key))
         for i in range (len(bmes)):
             bmes[i] = ord(bmes[i])
             try:
                 bmes[i] = chr(bmes[i] - random.randint(100, 100000))
             except:
-                print("Error")
-    return "".join(bmes)
+                print("invalid password")
+                break
+    try:
+        return "".join(bmes)
+    except:
+        return " "
             
 
     
@@ -44,7 +53,6 @@ while True:
         else:
             key = str(sp)
             
-        random.seed(seedgen(key))
         
         print("Type in the message that should be encrypted")
         mes = str(input())
@@ -62,7 +70,6 @@ while True:
         mes = str(input())
         print("Type in the Key")
         key = str(input())
-        random.seed(seedgen(key))
         print(" ")
         print("The decrypted message is: ")
         print(" ")
