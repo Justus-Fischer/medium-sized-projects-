@@ -38,8 +38,8 @@ def seedgen(pasw):
 def crypto(mes,mode):
     
     if mode == 1:
-        bmes = list(mes)
-        random.seed(seedgen(key))
+        bmes = list(mes) 
+        random.seed(seedgen(key)+iv)
         for i in range (len(bmes)):
             bmes[i] = ord(bmes[i])
             try:
@@ -57,7 +57,7 @@ def crypto(mes,mode):
         re = geheimtext = mes[6:]
         bmes = list(re)
         cbmes = list(re)
-        random.seed(seedgen(key))
+        random.seed(seedgen(key)+int(ivT))
         for i in range (len(bmes)):
             bmes[i] = ord(bmes[i])
             try:
