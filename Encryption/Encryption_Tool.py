@@ -1,5 +1,7 @@
 #JUST A DEMO - DO NOT USE FOR REAL SENSITIVE DATA!
 import random
+import secrets
+
 
 def bu(num):
     word = []
@@ -31,7 +33,7 @@ def seedgen(pasw):
     for i in range(len(bpasw)):
         stes = int((stes * 33) + ord(bpasw[i]))
         
-    return stes % (2**32)
+    return stes % (2**64)
 
 def crypto(mes,mode):
     
@@ -90,7 +92,7 @@ while True:
         else:
             key = str(sp)
             
-        iv = random.Random().randint(100000, 999999)
+        iv = secrets.randbelow(900000) + 100000
         print("Type in the message that should be encrypted")
         mes = str(input())
         
