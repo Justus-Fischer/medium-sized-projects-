@@ -107,7 +107,7 @@ while True:
     else:
         print("Type in/Paste the encrypted message")
         mes = str(input())
-        print("Type in the Key")
+        print("Type in the password")
         key = str(input())
         print(" ")
         print("The decrypted message is: ")
