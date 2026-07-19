@@ -87,17 +87,35 @@ usernames = []
 
 companies = []
 
+def print_everything():
+    print("Usernames:")
+    for username in usernames:
+        print(crypto(username, 2))
+    
+    print("\nPasswords:")
+    for password in passwords:
+        print(crypto(password, 2))
+    
+    print("\nCompanies:")
+    for company in companies:
+        print(crypto(company, 2))
 
 def save_password(username, password, company):
-
-    VERusername = crypto(username, 1)
-    VERpassword = crypto(password, 1)
-    VERcompany = crypto(company, 1)
-
-    usernames.append(VERusername)
-    passwords.append(VERpassword)
-    companies.append(VERcompany)
     
+    global iv
+
+    iv = secrets.randbelow(900000) + 100000
+    VERusername = crypto(username, 1)
+    usernames.append(str(str(iv) + VERusername))
+
+    iv = secrets.randbelow(900000) + 100000
+    VERpassword = crypto(password, 1)
+    passwords.append(str(str(iv) + VERpassword))
+
+    iv = secrets.randbelow(900000) + 100000
+    VERcompany = crypto(company, 1)
+    companies.append(str(str(iv) + VERcompany))
+
 
 def get_password(company):
     
@@ -105,27 +123,46 @@ def get_password(company):
         if crypto(companies[i], 2) == company:
             return crypto(usernames[i], 2), crypto(passwords[i], 2)
 
+
+while True:
+ 
     print("Enter your master password:")
     key = str(input())
 
-while True:
-  
-   if len(passwords) == 0:
-       print("No passwords stored yet.")
+    while True:
+        if len(passwords) == 0:
+            print("No passwords stored yet.")
 
-   print("Enter a command (add, get, exit):")
-   command = str(input())
+        print("Enter a command (add, get, exit):")
+        command = str(input())
 
-   if command == "add":
-       print("Please enter the username:")
-       username = str(input())
-       print("Please enter the password:")
-       password = str(input())
-       print("Please enter the company name:")
-       company = str(input())
-       save_password(username, password, company)
-       continue
+        if command == "add":
+       
+             print("Please enter the username:")
+             username = str(input())
+      
+             print("Please enter the password:")
+             password = str(input())
+       
+             print("Please enter the company name:")
+             company = str(input())
+             save_password(username,  password, company)
+             continue
 
+        if command == "get":
+            print("Please enter the company name:")
+            company = str(input())
+            result = get_password(company)
+            if result:
+                  username, password = result
+                  print(f"Username: {username}, Password: {password}")
+                  continue
+            else:
+                 print("No password found for that company.")
+                 continue 
 
+        if command == "exit":
+           #print_everything()
+           break
 
 
