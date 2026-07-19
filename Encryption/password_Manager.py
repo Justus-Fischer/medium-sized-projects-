@@ -1,9 +1,11 @@
 #just a demo 
 #Do not use for real passwords 
 
+from ast import While
 import random
 import secrets
 
+print("JUST A DEMO - DO NOT USE FOR REAL SENSITIVE DATA!")
 
 def bu(num):
     word = []
@@ -78,3 +80,52 @@ def crypto(mes,mode):
         print("Please try again")
     
             
+
+passwords = []
+
+usernames = []
+
+companies = []
+
+
+def save_password(username, password, company):
+
+    VERusername = crypto(username, 1)
+    VERpassword = crypto(password, 1)
+    VERcompany = crypto(company, 1)
+
+    usernames.append(VERusername)
+    passwords.append(VERpassword)
+    companies.append(VERcompany)
+    
+
+def get_password(company):
+    
+    for i in range(len(companies)):
+        if crypto(companies[i], 2) == company:
+            return crypto(usernames[i], 2), crypto(passwords[i], 2)
+
+    print("Enter your master password:")
+    key = str(input())
+
+while True:
+  
+   if len(passwords) == 0:
+       print("No passwords stored yet.")
+
+   print("Enter a command (add, get, exit):")
+   command = str(input())
+
+   if command == "add":
+       print("Please enter the username:")
+       username = str(input())
+       print("Please enter the password:")
+       password = str(input())
+       print("Please enter the company name:")
+       company = str(input())
+       save_password(username, password, company)
+       continue
+
+
+
+
