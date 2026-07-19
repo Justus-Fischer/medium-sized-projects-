@@ -1,9 +1,32 @@
 #just a demo 
 #Do not use for real passwords 
 
-from ast import While
+
 import random
 import secrets
+import json
+import os
+
+
+def saveData():
+    daten = {
+        "usernames": usernames,
+        "passwords": passwords,
+        "companies": companies
+    }
+    
+    with open("psdata.txt", "w", encoding="utf-8") as file:
+        json.dump(daten, file)
+
+
+def loadData():
+    global usernames, passwords, companies
+    if os.path.exists("psdata.txt"): 
+        with open("psdata.txt", "r", encoding="utf-8") as file:
+            daten = json.load(file)
+            usernames = daten["usernames"]
+            passwords = daten["passwords"]
+            companies = daten["companies"]
 
 print("JUST A DEMO - DO NOT USE FOR REAL SENSITIVE DATA!")
 
@@ -91,6 +114,7 @@ def print_everything():
     print("Usernames:")
     for username in usernames:
         print(crypto(username, 2))
+        
     
     print("\nPasswords:")
     for password in passwords:
@@ -120,21 +144,42 @@ def save_password(username, password, company):
 def get_password(company):
     
     for i in range(len(companies)):
-        if crypto(companies[i], 2) == company:
+        if  crypto(companies[i], 2).lower() == company.lower():
             return crypto(usernames[i], 2), crypto(passwords[i], 2)
+    for i in range(len(companies)):
+        if company.lower() in crypto(companies[i], 2).lower():
+            print(f"Did you mean '{crypto(companies[i], 2)}'?")
+            
 
 
 while True:
  
     print("Enter your master password:")
     key = str(input())
+    loadData()
 
     while True:
         if len(passwords) == 0:
             print("No passwords stored yet.")
 
-        print("Enter a command (add, get, exit):")
-        command = str(input())
+        print("Enter a command (add, get, exit, more, help):")
+        command = str(input().lower())
+        if command == "more":
+            print("Other commands: everything, delete, reset, help")
+            command = str(input().lower())
+
+        if command == "help":
+            print("Explaination of commands:")
+            print("add - Add a new password")
+            print("get - Get a password for a given company")
+            print("exit - Exit the program")
+            print("everything - Show all stored information")
+            print("delete - Delete a password for a given company")
+            print("reset - Reset all stored data")
+            print("help - Show this help message")
+            print(" ")
+            print("What do you want to do?")
+            command = str(input().lower())
 
         if command == "add":
        
@@ -162,7 +207,40 @@ while True:
                  continue 
 
         if command == "exit":
-           #print_everything()
+           
+           saveData()
+           key = None
+
            break
 
+        if command == "delete":
+            print("Please enter the company name to delete:")
+            company = str(input())
+            for i in range(len(companies)):
+                if crypto(companies[i], 2) == company:
+                    del usernames[i]
+                    del passwords[i]
+                    del companies[i]
+                    print(f"Deleted password for {company}.")
+                    break
+            else:
+                print("No password found for that company.")
+            continue
 
+
+        if command == "reset":
+            print("Are you sure you want to reset all data? (yes/no)")
+            confirmation = str(input())
+            if confirmation.lower() == "yes":
+                usernames = []
+                passwords = []
+                companies = []
+                saveData()
+                print("All data has been reset.")
+            else:
+                print("Reset cancelled.")
+            continue
+
+        if command == "everything":
+            print_everything()
+            continue
