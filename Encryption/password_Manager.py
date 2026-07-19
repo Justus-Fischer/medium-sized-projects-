@@ -111,18 +111,12 @@ usernames = []
 companies = []
 
 def print_everything():
-    print("Usernames:")
-    for username in usernames:
-        print(crypto(username, 2))
-        
     
-    print("\nPasswords:")
-    for password in passwords:
-        print(crypto(password, 2))
-    
-    print("\nCompanies:")
-    for company in companies:
-        print(crypto(company, 2))
+    for i in range(len(companies)):
+        print(f"Company: {crypto(companies[i], 2)}, Username: {crypto(usernames[i], 2)}, Password: {crypto(passwords[i], 2)}")
+
+    print(" ")
+
 
 def save_password(username, password, company):
     
@@ -156,6 +150,7 @@ while True:
  
     print("Enter your master password:")
     key = str(input())
+    print(" ")
     loadData()
 
     while True:
@@ -164,9 +159,12 @@ while True:
 
         print("Enter a command (add, get, exit, more, help):")
         command = str(input().lower())
+        print(" ")
+
         if command == "more":
             print("Other commands: everything, delete, reset, help")
             command = str(input().lower())
+            print(" ")
 
         if command == "help":
             print("Explaination of commands:")
@@ -180,6 +178,7 @@ while True:
             print(" ")
             print("What do you want to do?")
             command = str(input().lower())
+            print(" ")
 
         if command == "add":
        
@@ -192,6 +191,7 @@ while True:
              print("Please enter the company name:")
              company = str(input())
              save_password(username,  password, company)
+             print(" ")
              continue
 
         if command == "get":
@@ -204,13 +204,14 @@ while True:
                   continue
             else:
                  print("No password found for that company.")
+                 print(" ")
                  continue 
 
         if command == "exit":
            
            saveData()
            key = None
-
+           print(" ")
            break
 
         if command == "delete":
@@ -222,25 +223,37 @@ while True:
                     del passwords[i]
                     del companies[i]
                     print(f"Deleted password for {company}.")
-                    break
-            else:
-                print("No password found for that company.")
-            continue
+                    print(" ")
+                    continue
+            
+            for i in range(len(companies)):
+                 if company.lower() in crypto(companies[i], 2).lower():
+                      print(f"Did you mean '{crypto(companies[i], 2)}'?")
+                      continue 
+                        
+
+            print("No password found for that company.")
+                    
 
 
         if command == "reset":
             print("Are you sure you want to reset all data? (yes/no)")
             confirmation = str(input())
+            print(" ")
             if confirmation.lower() == "yes":
                 usernames = []
                 passwords = []
                 companies = []
                 saveData()
                 print("All data has been reset.")
+                print("")
             else:
                 print("Reset cancelled.")
+                print("")
             continue
 
         if command == "everything":
             print_everything()
+            print(" ")
+            print("")
             continue
