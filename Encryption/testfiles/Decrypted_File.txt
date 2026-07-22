@@ -1,0 +1,8 @@
+master Password: Hello123
+
+Decrypted Data:
+
+Company: Crunchyroll-Fake, Username: GiantFan99, Password: alhfg65-?
+Company: Acme-Corp, Username: JohnDoe, Password: jödsf#sda?-
+Company: Stark-Industries, Username: IronMan_Mock, Password: fja68-8097(/
+Company: Initech, Username: Bob, Password: ajg459?
