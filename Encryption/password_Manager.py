@@ -1,7 +1,7 @@
 #just a demo 
 #Do not use for real passwords 
 
-
+import time
 import random
 import secrets
 import json
@@ -59,15 +59,23 @@ def zke(wert):
         wert = wert - 2048  
     return wert % 0x110000
 
+stes = 15
 def seedgen(pasw):
+    global stes
+    if stes != 15:
+
+        return stes
+
     stes = 5381
-    
     bpasw = list(pasw)
-    
-    for i in range(len(bpasw)):
-        stes = int((stes * 33) + ord(bpasw[i]))
-        
-    return stes % (2**64)
+    pr = time.time()
+    for r in range(600000):
+        for i in range(len(bpasw)):
+
+            stes = int(((stes * 33) + ord(bpasw[i]) + r) % (2 ** 256))
+    #print(time.time()-pr)
+    return stes
+
 
 def crypto(mes,mode):
     
@@ -157,6 +165,9 @@ while True:
  
     print("Enter your master password:")
     key = str(input())
+    print("Please wait a moment")
+    print("Decrypting can take a few seconds.")
+    seedgen(key)
     print(" ")
     loadData()
 
