@@ -7,6 +7,13 @@ import secrets
 import json
 import os
 
+def fillup(password):
+    filledpassword = password.ljust(35,"\x00")
+    return filledpassword
+
+def short(password):
+    shortpassword = password.rstrip("\x00")
+    return shortpassword
 
 def saveData():
     daten = {
@@ -113,7 +120,7 @@ companies = []
 def print_everything():
     
     for i in range(len(companies)):
-        print(f"Company: {crypto(companies[i], 2)}, Username: {crypto(usernames[i], 2)}, Password: {crypto(passwords[i], 2)}")
+        print(f"Company: {crypto(companies[i], 2)}, Username: {crypto(usernames[i], 2)}, Password: {short(crypto(passwords[i], 2))}")
 
     print(" ")
 
@@ -127,7 +134,7 @@ def save_password(username, password, company):
     usernames.append(str(str(iv) + VERusername))
 
     iv = secrets.randbelow(900000) + 100000
-    VERpassword = crypto(password, 1)
+    VERpassword = crypto(fillup(password), 1)
     passwords.append(str(str(iv) + VERpassword))
 
     iv = secrets.randbelow(900000) + 100000
@@ -138,8 +145,8 @@ def save_password(username, password, company):
 def get_password(company):
     
     for i in range(len(companies)):
-        if  crypto(companies[i], 2).lower() == company.lower():
-            return crypto(usernames[i], 2), crypto(passwords[i], 2)
+        if  crypto(short(companies[i]), 2).lower() == company.lower():
+            return crypto(usernames[i], 2), short(crypto(passwords[i], 2))
     for i in range(len(companies)):
         if company.lower() in crypto(companies[i], 2).lower():
             print(f"Did you mean '{crypto(companies[i], 2)}'?")
