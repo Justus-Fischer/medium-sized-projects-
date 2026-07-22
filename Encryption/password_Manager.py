@@ -230,6 +230,7 @@ while True:
            saveData()
            key = None
            print(" ")
+           stes = 15
            break
 
         if command == "delete":
@@ -275,6 +276,7 @@ while True:
             print(" ")
             print("")
             continue
+
 
 
 
