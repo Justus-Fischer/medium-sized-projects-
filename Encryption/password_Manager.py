@@ -128,7 +128,7 @@ companies = []
 def print_everything():
     
     for i in range(len(companies)):
-        print(f"Company: {crypto(companies[i], 2)}, Username: {crypto(usernames[i], 2)}, Password: {short(crypto(passwords[i], 2))}")
+        print(f"Company: {short(crypto(companies[i], 2))}, Username: {short(crypto(usernames[i], 2))}, Password: {short(crypto(passwords[i], 2))}")
 
     print(" ")
 
@@ -138,7 +138,7 @@ def save_password(username, password, company):
     global iv
 
     iv = secrets.randbelow(900000) + 100000
-    VERusername = crypto(username, 1)
+    VERusername = crypto(fillup(username), 1)
     usernames.append(str(str(iv) + VERusername))
 
     iv = secrets.randbelow(900000) + 100000
@@ -146,18 +146,18 @@ def save_password(username, password, company):
     passwords.append(str(str(iv) + VERpassword))
 
     iv = secrets.randbelow(900000) + 100000
-    VERcompany = crypto(company, 1)
+    VERcompany = crypto(fillup(company), 1)
     companies.append(str(str(iv) + VERcompany))
 
 
 def get_password(company):
     
     for i in range(len(companies)):
-        if  crypto(short(companies[i]), 2).lower() == company.lower():
-            return crypto(usernames[i], 2), short(crypto(passwords[i], 2))
+        if  short(crypto(companies[i]), 2).lower() == company.lower():
+            return short(crypto(usernames[i], 2)), short(crypto(passwords[i], 2))
     for i in range(len(companies)):
-        if company.lower() in crypto(companies[i], 2).lower():
-            print(f"Did you mean '{crypto(companies[i], 2)}'?")
+        if company.lower() in short(crypto(companies[i], 2)).lower():
+            print(f"Did you mean '{short(crypto(companies[i], 2))}'?")
             
 
 
