@@ -29,7 +29,7 @@ Disclaimer: This tool is for educational purpose only. Do not use it for ilegal 
 
 About the Encryption folder:
 
-the projects inside are just learning projects and NOT SAVE enough for real passwords or sensitive data
+the projects inside are just learning projects and NOT SAFE enough for real passwords or sensitive data
 
 
 How to run the code (Linux):
